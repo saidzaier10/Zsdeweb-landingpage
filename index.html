@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZsDevWeb v3 - Professional Quote Generator & Portfolio</title>
+    <meta name="description" content="Automated quote generation system for web development services with electronic signatures, PDF generation, and real-time analytics">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        },
+                        secondary: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        'display': ['Poppins', 'system-ui', 'sans-serif'],
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Preload video for better performance -->
+    <link rel="preload" href="/assets/video/demo.mp4" as="video" type="video/mp4">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-blue-teal {
+            background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%);
+        }
+
+        .hero-section {
+            background: 
+                linear-gradient(135deg, rgba(59, 130, 246, 0.85) 0%, rgba(20, 184, 166, 0.85) 100%),
+                url('/assets/images/hero-bg.jpg') center/cover no-repeat;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                background: 
+                    linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(20, 184, 166, 0.9) 100%),
+                    url('/assets/images/hero-bg-mobile.jpg') center/cover no-repeat;
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .tech-badge {
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: scale(1.1);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+
+        /* Video player custom styles */
+        .video-container {
+            position: relative;
+            background: #000;
+        }
+
+        .video-controls {
+            transition: opacity 0.3s ease;
+        }
+
+        .video-container:hover .video-controls {
+            opacity: 1;
+        }
+
+        /* Professional Architecture Diagram Styles */
+        .architecture-grid {
+            position: relative;
+            min-height: 600px;
+        }
+
+        .layer {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .layer-title {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #3b82f6;
+        }
+
+        .service-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .browser .service-icon { background: #4299e1; color: white; }
+        .load-balancer .service-icon { background: #48bb78; color: white; }
+        .frontend .service-icon { background: #38a169; color: white; }
+        .backend .service-icon { background: #4c51bf; color: white; }
+        .database .service-icon { background: #0bc5ea; color: white; }
+        .cache .service-icon { background: #e53e3e; color: white; }
+        .email .service-icon { background: #ed8936; color: white; }
+        .storage .service-icon { background: #9f7aea; color: white; }
+
+        .service-info {
+            flex: 1;
+        }
+
+        .service-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .service-details {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-bottom: 0.25rem;
+        }
+
+        .service-ports {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Connection Lines */
+        .connection-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .line {
+            position: absolute;
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+        }
+
+        .client-to-network {
+            top: 25%;
+            left: 50%;
+            width: 2px;
+            height: 8%;
+            transform: translateX(-50%);
+        }
+
+        .network-to-frontend {
+            top: 35%;
+            left: 25%;
+            width: 2px;
+            height: 10%;
+        }
+
+        .network-to-backend {
+            top: 35%;
+            left: 75%;
+            width: 2px;
+            height: 10%;
+        }
+
+        .frontend-to-backend {
+            top: 47%;
+            left: 50%;
+            width: 50%;
+            height: 2px;
+            transform: translateX(-50%);
+        }
+
+        .backend-to-database {
+            top: 60%;
+            left: 25%;
+            width: 2px;
+            height: 8%;
+        }
+
+        .backend-to-cache {
+            top: 60%;
+            left: 75%;
+            width: 2px;
+            height: 8%;
+        }
+
+        .backend-to-external {
+            top: 70%;
+            left: 50%;
+            width: 2px;
+            height: 8%;
+            transform: translateX(-50%);
+        }
+
+        /* Protocol Labels */
+        .protocol-labels {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .protocol-label {
+            position: absolute;
+            background: #1f2937;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            transform: translateX(-50%);
+            white-space: nowrap;
+        }
+
+        .protocol-label::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -4px;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #1f2937;
+        }
+
+        /* Responsive Design for Architecture */
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .architecture-grid {
+                min-height: 800px;
+            }
+            
+            .connection-lines,
+            .protocol-labels {
+                display: none;
+            }
+        }
+
+        /* Animation for diagram elements */
+        .service-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: serviceAppear 0.6s ease forwards;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes serviceAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .line {
+            opacity: 0;
+            animation: lineDraw 0.8s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes lineDraw {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Additional custom styles */
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Hero section enhancements */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(59, 130, 246, 0.9) 0%, rgba(20, 184, 166, 0.9) 100%),
+                url('/assets/images/hero-bg.jpg') center/cover no-repeat;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-display font-bold gradient-blue-teal bg-clip-text text-transparent">
+                        ZsDevWeb v3
+                    </span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-primary-600 transition">Features</a>
+                    <a href="#architecture" class="text-gray-700 hover:text-primary-600 transition">Architecture</a>
+                    <a href="#demo" class="text-gray-700 hover:text-primary-600 transition">Demo</a>
+                    <a href="#results" class="text-gray-700 hover:text-primary-600 transition">Results</a>
+                    <a href="#developer" class="text-gray-700 hover:text-primary-600 transition">Developer</a>
+                    <a href="#contact" class="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition">
+                        Contact
+                    </a>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary-600">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#features" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Features</a>
+                <a href="#architecture" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Architecture</a>
+                <a href="#demo" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Demo</a>
+                <a href="#results" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Results</a>
+                <a href="#developer" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Developer</a>
+                <a href="#contact" class="block px-3 py-2 text-primary-600 font-semibold">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section avec image de fond -->
+    <section class="pt-32 pb-20 hero-section relative overflow-hidden">
+        <!-- Background overlay pour meilleure lisibilité -->
+        <div class="absolute inset-0 bg-black/20"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-white hero-content">
+                    <div class="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                        🚀 Full Stack Developer Project
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-display font-bold mb-6 leading-tight">
+                        Professional Quote Generator
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-white/90">
+                        Automate quote generation with electronic signatures, PDF generation, and real-time analytics
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#demo" class="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition shadow-lg">
+                            <i class="fas fa-play mr-2"></i> Watch Demo
+                        </a>
+                        <a href="#features" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+
+                    <!-- Tech badges -->
+                    <div class="mt-12 flex flex-wrap gap-3">
+                        <span class="tech-badge bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">Django 5.1</span>
+                        <span class="tech-badge bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">Vue.js 3</span>
+                        <span class="tech-badge bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">PostgreSQL</span>
+                        <span class="tech-badge bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">Redis</span>
+                        <span class="tech-badge bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">Docker</span>
+                    </div>
+                </div>
+
+                <div class="relative animate-float">
+                    <div class="bg-white/10 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-white/20">
+                        <div class="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-6 border border-white/10">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-display font-bold text-xl text-white">Quick Stats</h3>
+                                <i class="fas fa-chart-line text-white text-2xl"></i>
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-white/80">Time Savings</span>
+                                    <span class="font-bold text-green-300">83%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-white/80">Features Complete</span>
+                                    <span class="font-bold text-green-300">100%</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-white/80">API Endpoints</span>
+                                    <span class="font-bold text-blue-300">30+</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-white/80">Database Models</span>
+                                    <span class="font-bold text-blue-300">18</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-white/80 text-sm mb-2">Achievement Rate</p>
+                            <p class="text-4xl font-display font-bold text-white">101.5%</p>
+                            <p class="text-green-300 text-sm mt-2">✓ Exceeded objectives</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="bg-white py-12 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <p class="text-4xl font-display font-bold text-primary-600">18</p>
+                    <p class="text-gray-600 mt-2">Database Models</p>
+                </div>
+                <div>
+                    <p class="text-4xl font-display font-bold text-primary-600">30+</p>
+                    <p class="text-gray-600 mt-2">API Endpoints</p>
+                </div>
+                <div>
+                    <p class="text-4xl font-display font-bold text-primary-600">36</p>
+                    <p class="text-gray-600 mt-2">Vue Components</p>
+                </div>
+                <div>
+                    <p class="text-4xl font-display font-bold text-primary-600">5</p>
+                    <p class="text-gray-600 mt-2">Docker Services</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">Powerful Features</h2>
+                <p class="text-xl text-gray-600">Everything you need for professional quote management</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+                    <div class="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-file-invoice text-primary-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">8-Step Quote Builder</h3>
+                    <p class="text-gray-600 mb-4">Interactive wizard guides clients through quote creation with real-time price calculations</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Category selection</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Dynamic pricing</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Discount system</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Instant preview</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-signature text-green-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">Electronic Signatures</h3>
+                    <p class="text-gray-600 mb-4">Secure, token-based signature system with canvas drawing and IP tracking</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Unique secure tokens</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Canvas-based signing</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> IP & timestamp capture</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Auto status updates</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-file-pdf text-red-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">PDF Generation</h3>
+                    <p class="text-gray-600 mb-4">Professional, branded PDFs generated automatically with WeasyPrint</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Custom branding</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Auto-generation</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Email attachment</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Download option</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-pie text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">Admin Dashboard</h3>
+                    <p class="text-gray-600 mb-4">Real-time analytics with Chart.js visualizations and quote management</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Revenue tracking</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Status distribution</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Category breakdown</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Export to Excel/PDF</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+                    <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-yellow-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">Enterprise Security</h3>
+                    <p class="text-gray-600 mb-4">Multi-layer security with JWT, rate limiting, and attack prevention</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> JWT authentication</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> SQL injection prevention</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> XSS protection</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Rate limiting</li>
+                    </ul>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="bg-white rounded-xl p-8 shadow-lg card-hover">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-blue-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold mb-4">High Performance</h3>
+                    <p class="text-gray-600 mb-4">Optimized with Redis caching, database indexes, and image compression</p>
+                    <ul class="space-y-2 text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> 70% query reduction</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> <2s page load</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Image optimization</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Lazy loading</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">System Architecture</h2>
+                <p class="text-xl text-gray-600">Scalable microservices architecture with modern DevOps practices</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <div>
+                    <h3 class="text-3xl font-display font-bold mb-6">Technology Stack</h3>
+
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fas fa-server text-primary-600 mr-3"></i>
+                                Backend Services
+                            </h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-semibold border border-green-300">Django 5.1</span>
+                                <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm font-semibold border border-blue-300">Django REST Framework</span>
+                                <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-semibold border border-purple-300">PostgreSQL 17</span>
+                                <span class="bg-red-100 text-red-800 px-4 py-2 rounded-lg text-sm font-semibold border border-red-300">Redis 7</span>
+                                <span class="bg-orange-100 text-orange-800 px-4 py-2 rounded-lg text-sm font-semibold border border-orange-300">Celery</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fas fa-desktop text-primary-600 mr-3"></i>
+                                Frontend Layer
+                            </h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-semibold border border-green-300">Vue.js 3</span>
+                                <span class="bg-purple-100 text-purple-800 px-4 py-2 rounded-lg text-sm font-semibold border border-purple-300">Pinia Store</span>
+                                <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm font-semibold border border-blue-300">Tailwind CSS</span>
+                                <span class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg text-sm font-semibold border border-yellow-300">Chart.js</span>
+                                <span class="bg-indigo-100 text-indigo-800 px-4 py-2 rounded-lg text-sm font-semibold border border-indigo-300">Vue Router</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="font-bold text-lg mb-3 flex items-center">
+                                <i class="fas fa-docker text-primary-600 mr-3"></i>
+                                Infrastructure & DevOps
+                            </h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm font-semibold border border-blue-300">Docker</span>
+                                <span class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm font-semibold border border-green-300">Nginx</span>
+                                <span class="bg-orange-100 text-orange-800 px-4 py-2 rounded-lg text-sm font-semibold border border-orange-300">Gunicorn</span>
+                                <span class="bg-red-100 text-red-800 px-4 py-2 rounded-lg text-sm font-semibold border border-red-300">GitHub Actions</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                        <h4 class="font-bold text-lg mb-4">Architecture Principles</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong>API-First Design</strong> - RESTful endpoints with OpenAPI documentation</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong>Stateless Authentication</strong> - JWT tokens with refresh mechanism</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong>Caching Strategy</strong> - Multi-layer caching with Redis & CDN</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                <span><strong>Database Optimization</strong> - Connection pooling & query optimization</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Professional Architecture Diagram -->
+                <div class="bg-white rounded-2xl p-8 shadow-xl border border-gray-200">
+                    <h4 class="font-bold text-xl mb-8 text-center text-gray-800 border-b pb-4">Microservices Architecture</h4>
+                    
+                    <div class="architecture-grid">
+                        <!-- Client Layer -->
+                        <div class="layer client-layer">
+                            <div class="layer-title">Client Layer</div>
+                            <div class="service-card browser">
+                                <div class="service-icon">
+                                    <i class="fab fa-chrome"></i>
+                                </div>
+                                <div class="service-info">
+                                    <div class="service-name">Web Browser</div>
+                                    <div class="service-details">HTTPS • Vue.js SPA</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network Layer -->
+                        <div class="layer network-layer">
+                            <div class="layer-title">Network Layer</div>
+                            <div class="service-card load-balancer">
+                                <div class="service-icon">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <div class="service-info">
+                                    <div class="service-name">Nginx</div>
+                                    <div class="service-details">Load Balancer • Reverse Proxy</div>
+                                    <div class="service-ports">Ports: 80, 443</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Application Layer -->
+                        <div class="layer app-layer">
+                            <div class="layer-title">Application Layer</div>
+                            <div class="services-grid">
+                                <div class="service-card frontend">
+                                    <div class="service-icon">
+                                        <i class="fab fa-vuejs"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <div class="service-name">Frontend Service</div>
+                                        <div class="service-details">Vue.js 3 • Vite</div>
+                                        <div class="service-ports">Port: 5173</div>
+                                    </div>
+                                </div>
+                                <div class="service-card backend">
+                                    <div class="service-icon">
+                                        <i class="fab fa-python"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <div class="service-name">Backend API</div>
+                                        <div class="service-details">Django 5 • Gunicorn</div>
+                                        <div class="service-ports">Port: 8000</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Layer -->
+                        <div class="layer data-layer">
+                            <div class="layer-title">Data Layer</div>
+                            <div class="services-grid">
+                                <div class="service-card database">
+                                    <div class="service-icon">
+                                        <i class="fas fa-database"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <div class="service-name">PostgreSQL</div>
+                                        <div class="service-details">Primary Database</div>
+                                        <div class="service-ports">Port: 5432</div>
+                                    </div>
+                                </div>
+                                <div class="service-card cache">
+                                    <div class="service-icon">
+                                        <i class="fas fa-bolt"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <div class="service-name">Redis</div>
+                                        <div class="service-details">Cache • Session Store</div>
+                                        <div class="service-ports">Port: 6379</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- External Services -->
+                        <div class="layer external-layer">
+                            <div class="layer-title">External Services</div>
+                            <div class="services-grid">
+                                <div class="service-card email">
+                                    <div class="service-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <div class="service-name">SMTP Service</div>
+                                        <div class="service-details">Email Delivery</div>
+                                    </div>
+                                </div>
+                                <div class="service-card storage">
+                                    <div class="service-icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </div>
+                                    <div class="service-info">
+                                        <div class="service-name">WeasyPrint</div>
+                                        <div class="service-details">PDF Generation</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Connection Lines -->
+                    <div class="connection-lines">
+                        <div class="line client-to-network"></div>
+                        <div class="line network-to-frontend"></div>
+                        <div class="line network-to-backend"></div>
+                        <div class="line frontend-to-backend"></div>
+                        <div class="line backend-to-database"></div>
+                        <div class="line backend-to-cache"></div>
+                        <div class="line backend-to-external"></div>
+                    </div>
+
+                    <!-- Protocol Labels -->
+                    <div class="protocol-labels">
+                        <div class="protocol-label" style="top: 20%; left: 50%;">HTTPS</div>
+                        <div class="protocol-label" style="top: 35%; left: 50%;">HTTP/2</div>
+                        <div class="protocol-label" style="top: 55%; left: 50%;">REST API</div>
+                        <div class="protocol-label" style="top: 70%; left: 30%;">SQL</div>
+                        <div class="protocol-label" style="top: 70%; left: 70%;">Redis Protocol</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Technical Specifications -->
+            <div class="mt-16 grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                    <h4 class="font-bold text-lg mb-4">Performance Metrics</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">API Response Time</span>
+                                <span class="text-sm text-green-600 font-bold">&lt; 200ms</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Database Query Optimization</span>
+                                <span class="text-sm text-green-600 font-bold">70% faster</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium">Cache Hit Ratio</span>
+                                <span class="text-sm text-green-600 font-bold">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+                    <h4 class="font-bold text-lg mb-4">Security Features</h4>
+                    <div class="grid grid-cols-2 gap-4 text-sm">
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            <span>JWT Authentication</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            <span>Rate Limiting</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            <span>CORS Protection</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            <span>SQL Injection Prevention</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            <span>XSS Protection</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-green-500 mr-2"></i>
+                            <span>CSRF Tokens</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">Live Demo</h2>
+                <p class="text-xl text-gray-600">Découvrez ZsDevWeb v3 en action</p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <!-- Video Player -->
+                <div class="relative aspect-video bg-black video-container">
+                    <video 
+                        id="demo-video"
+                        class="w-full h-full"
+                        controls
+                        preload="metadata"
+                    >
+                        <source src="/assets/video/demo.mp4" type="video/mp4">
+                        <source src="/assets/video/demo.webm" type="video/webm">
+                        Votre navigateur ne supporte pas la lecture de vidéos.
+                    </video>
+                    
+                    <!-- Loading state -->
+                    <div id="video-loading" class="absolute inset-0 flex items-center justify-center bg-gray-900 hidden">
+                        <div class="text-center text-white">
+                            <i class="fas fa-spinner fa-spin text-4xl mb-4"></i>
+                            <p>Chargement de la démo...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Controls Custom -->
+                <div class="p-6 bg-gray-50 border-t">
+                    <div class="flex flex-wrap gap-4 justify-center items-center">
+                        <button onclick="playPauseVideo()" class="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition">
+                            <i class="fas fa-play mr-2"></i> Lecture
+                        </button>
+                        <button onclick="restartVideo()" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition">
+                            <i class="fas fa-redo mr-2"></i> Redémarrer
+                        </button>
+                        <button onclick="toggleFullscreen()" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition">
+                            <i class="fas fa-expand mr-2"></i> Plein écran
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-8">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-primary-600 font-bold text-xl">1</span>
+                            </div>
+                            <h4 class="font-bold mb-2">Création de Devis</h4>
+                            <p class="text-gray-600 text-sm">Assistant 8 étapes avec calcul de prix en temps réel</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-primary-600 font-bold text-xl">2</span>
+                            </div>
+                            <h4 class="font-bold mb-2">Génération PDF</h4>
+                            <p class="text-gray-600 text-sm">Création automatique et envoi par email</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <span class="text-primary-600 font-bold text-xl">3</span>
+                            </div>
+                            <h4 class="font-bold mb-2">Signature Électronique</h4>
+                            <p class="text-gray-600 text-sm">Signature sécurisée avec confirmation instantanée</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">Project Results</h2>
+                <p class="text-xl text-gray-600">Exceeding expectations across all metrics</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Achievement Rate -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-8 text-center">
+                    <i class="fas fa-trophy text-6xl text-green-600 mb-4"></i>
+                    <h3 class="text-3xl font-display font-bold mb-2">Achievement Rate</h3>
+                    <p class="text-7xl font-display font-bold text-green-600">101.5%</p>
+                    <p class="text-gray-600 mt-4">Exceeded initial project objectives</p>
+                </div>
+
+                <!-- Time Savings -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 text-center">
+                    <i class="fas fa-clock text-6xl text-blue-600 mb-4"></i>
+                    <h3 class="text-3xl font-display font-bold mb-2">Time Savings</h3>
+                    <p class="text-7xl font-display font-bold text-blue-600">83%</p>
+                    <p class="text-gray-600 mt-4">From 30 minutes to 5 minutes per quote</p>
+                </div>
+            </div>
+
+            <!-- Feature Completion -->
+            <div class="mt-12 bg-gray-50 rounded-2xl p-8">
+                <h3 class="text-2xl font-display font-bold mb-8 text-center">Feature Completion</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Quote System</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Portfolio</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Authentication</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Admin Dashboard</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Email System</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex justify-between mb-2">
+                            <span class="font-semibold">Security</span>
+                            <span class="text-green-600 font-bold">100%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div class="bg-green-600 h-3 rounded-full" style="width: 100%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developer Section -->
+    <section id="developer" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-4">The Developer</h2>
+                <p class="text-xl text-gray-600">Full Stack Developer behind ZsDevWeb v3</p>
+            </div>
+
+            <div class="flex justify-center">
+                <div class="bg-white rounded-xl p-8 shadow-lg text-center card-hover max-w-md">
+                    <div class="w-32 h-32 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                        <i class="fas fa-code text-white text-5xl"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-2xl mb-2">ZAIER Said</h3>
+                    <p class="text-primary-600 font-semibold mb-2">Full Stack Developer</p>
+                    <p class="text-gray-600 mb-4">Développeur full-stack passionné, créateur de ZsDevWeb v3</p>
+                    
+                    <div class="mb-6">
+                        <h4 class="font-bold mb-3">Compétences principales</h4>
+                        <div class="flex flex-wrap justify-center gap-2 mb-4">
+                            <span class="bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-sm">Django</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Vue.js</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">PostgreSQL</span>
+                            <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Docker</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm">Python</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center space-x-6">
+                        <a href="https://github.com/saidzaier10" class="text-gray-600 hover:text-gray-900 transition" target="_blank">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/said-zaier/" class="text-gray-600 hover:text-blue-600 transition" target="_blank">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="mailto:said.zaier@gmail.com" class="text-gray-600 hover:text-red-600 transition">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Development Journey -->
+            <div class="mt-16 bg-white rounded-2xl p-8 shadow-lg">
+                <h3 class="text-2xl font-display font-bold mb-6 text-center">Development Journey</h3>
+                <div class="grid md:grid-cols-4 gap-6 text-center">
+                    <div>
+                        <div class="bg-primary-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-lightbulb text-primary-600"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Conception</h4>
+                        <p class="text-gray-600 text-sm">Architecture et planification du projet</p>
+                    </div>
+                    <div>
+                        <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-code text-green-600"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Développement</h4>
+                        <p class="text-gray-600 text-sm">Backend Django et frontend Vue.js</p>
+                    </div>
+                    <div>
+                        <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-database text-blue-600"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Base de données</h4>
+                        <p class="text-gray-600 text-sm">Modélisation et optimisation PostgreSQL</p>
+                    </div>
+                    <div>
+                        <div class="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-rocket text-purple-600"></i>
+                        </div>
+                        <h4 class="font-bold mb-2">Déploiement</h4>
+                        <p class="text-gray-600 text-sm">Docker et infrastructure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="contact" class="py-20 gradient-blue-teal">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Let's Connect</h2>
+            <p class="text-xl mb-8">Interested in learning more about ZsDevWeb v3?</p>
+
+            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+                <a href="https://github.com/saidzaier10/Zsdevweb-v3" class="bg-white text-primary-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition inline-flex items-center justify-center">
+                    <i class="fab fa-github mr-2 text-xl"></i> View on GitHub
+                </a>
+                <a href="mailto:said.zaier@gmail.com" class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition inline-flex items-center justify-center">
+                    <i class="fas fa-envelope mr-2"></i> Contact Me
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <i class="fas fa-envelope text-4xl mb-4"></i>
+                    <p class="font-semibold mb-2">Email</p>
+                    <p class="text-white/80">said.zaier@gmail.com</p>
+                </div>
+                <div>
+                    <i class="fab fa-github text-4xl mb-4"></i>
+                    <p class="font-semibold mb-2">GitHub</p>
+                    <p class="text-white/80">github.com/saidzaier10</p>
+                </div>
+                <div>
+                    <i class="fab fa-linkedin text-4xl mb-4"></i>
+                    <p class="font-semibold mb-2">LinkedIn</p>
+                    <p class="text-white/80">/in/said-zaier</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="font-display font-bold text-2xl mb-4">ZsDevWeb v3</h3>
+                    <p class="text-gray-400">Professional Quote Generator & Portfolio Platform</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#architecture" class="hover:text-white transition">Architecture</a></li>
+                        <li><a href="#demo" class="hover:text-white transition">Demo</a></li>
+                        <li><a href="#results" class="hover:text-white transition">Results</a></li>
+                        <li><a href="#developer" class="hover:text-white transition">Developer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="https://github.com/saidzaier10/Zsdevweb-v3" class="hover:text-white transition" target="_blank">GitHub Repository</a></li>
+                        <li><a href="#" class="hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition">API Docs</a></li>
+                        <li><a href="#" class="hover:text-white transition">Project Report</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 ZsDevWeb v3. Développé par ZAIER Said.</p>
+                <p class="mt-2">Full Stack Developer - Django, Vue.js, PostgreSQL, Redis, et Docker.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 bg-primary-600 text-white w-12 h-12 rounded-full shadow-lg hover:bg-primary-700 transition hidden items-center justify-center">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll to top button
+        const scrollTopButton = document.getElementById('scroll-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                scrollTopButton.classList.remove('hidden');
+                scrollTopButton.classList.add('flex');
+            } else {
+                scrollTopButton.classList.add('hidden');
+                scrollTopButton.classList.remove('flex');
+            }
+        });
+
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Video controls
+        const video = document.getElementById('demo-video');
+        const videoLoading = document.getElementById('video-loading');
+
+        function playPauseVideo() {
+            if (video.paused) {
+                video.play();
+            } else {
+                video.pause();
+            }
+        }
+
+        function restartVideo() {
+            video.currentTime = 0;
+            video.play();
+        }
+
+        function toggleFullscreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+
+        // Video event listeners
+        video.addEventListener('waiting', () => {
+            videoLoading.classList.remove('hidden');
+        });
+
+        video.addEventListener('canplay', () => {
+            videoLoading.classList.add('hidden');
+        });
+
+        video.addEventListener('ended', () => {
+            // Option: show call to action when video ends
+            console.log('Video ended - show CTA');
+        });
+
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (e.target === video || document.fullscreenElement === video) {
+                switch(e.key) {
+                    case ' ':
+                    case 'k':
+                        e.preventDefault();
+                        playPauseVideo();
+                        break;
+                    case 'f':
+                        e.preventDefault();
+                        toggleFullscreen();
+                        break;
+                    case 'r':
+                        e.preventDefault();
+                        restartVideo();
+                        break;
+                }
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards
+        document.querySelectorAll('.card-hover').forEach((card) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Animate architecture diagram on scroll
+        const architectureObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const serviceCards = entry.target.querySelectorAll('.service-card');
+                    const lines = entry.target.querySelectorAll('.line');
+                    
+                    serviceCards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, index * 200);
+                    });
+                    
+                    setTimeout(() => {
+                        lines.forEach(line => {
+                            line.style.opacity = '1';
+                        });
+                    }, serviceCards.length * 200);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const architectureSection = document.querySelector('.architecture-grid');
+        if (architectureSection) {
+            architectureObserver.observe(architectureSection);
+        }
+    </script>
+</body>
+</html>
